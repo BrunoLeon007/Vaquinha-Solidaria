@@ -4,7 +4,7 @@
 
 const META = 600;
 
-const USUARIO = "admin";
+const USUARIO = "Admin";
 const SENHA = "DN@2026";
 
 let metaAlcancada = false;
@@ -14,33 +14,33 @@ let metaAlcancada = false;
 // =======================================
 
 let arrecadado =
-Number(localStorage.getItem("arrecadado")) || 0;
+    Number(localStorage.getItem("arrecadado")) || 0;
 
 let historico =
-JSON.parse(localStorage.getItem("historico")) || [];
+    JSON.parse(localStorage.getItem("historico")) || [];
 
 let ranking =
-JSON.parse(localStorage.getItem("ranking")) || {};
+    JSON.parse(localStorage.getItem("ranking")) || {};
 
 let mensagens =
-JSON.parse(localStorage.getItem("mensagens")) || [];
+    JSON.parse(localStorage.getItem("mensagens")) || [];
 
 // =======================================
 // LOGIN
 // =======================================
 
-function login(){
+function login() {
 
     const usuario =
-    document.getElementById("usuario").value.trim();
+        document.getElementById("usuario").value.trim();
 
     const senha =
-    document.getElementById("senha").value.trim();
+        document.getElementById("senha").value.trim();
 
-    if(
+    if (
         usuario === USUARIO &&
         senha === SENHA
-    ){
+    ) {
 
         localStorage.setItem(
             "adminLogado",
@@ -57,18 +57,18 @@ function login(){
 
         atualizarTela();
 
-    }else{
+    } else {
 
         document.getElementById(
             "erroLogin"
         ).innerText =
-        "Usuário ou senha inválidos.";
+            "Usuário ou senha inválidos.";
 
     }
 
 }
 
-function logout(){
+function logout() {
 
     localStorage.removeItem(
         "adminLogado"
@@ -82,40 +82,40 @@ function logout(){
 // FOGOS DE ARTIFÍCIO
 // =======================================
 
-function dispararFogos(){
+function dispararFogos() {
 
     confetti({
-        particleCount:200,
-        spread:180,
-        origin:{ y:0.6 }
+        particleCount: 200,
+        spread: 180,
+        origin: { y: 0.6 }
     });
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         confetti({
-            particleCount:150,
-            angle:60,
-            spread:80,
-            origin:{ x:0 }
+            particleCount: 150,
+            angle: 60,
+            spread: 80,
+            origin: { x: 0 }
         });
 
         confetti({
-            particleCount:150,
-            angle:120,
-            spread:80,
-            origin:{ x:1 }
+            particleCount: 150,
+            angle: 120,
+            spread: 80,
+            origin: { x: 1 }
         });
 
-    },300);
+    }, 300);
 
-    setTimeout(()=>{
+    setTimeout(() => {
 
         confetti({
-            particleCount:250,
-            spread:360
+            particleCount: 250,
+            spread: 360
         });
 
-    },700);
+    }, 700);
 
 }
 
@@ -123,23 +123,23 @@ function dispararFogos(){
 // DOAÇÕES
 // =======================================
 
-function adicionarDoacao(){
+function adicionarDoacao() {
 
     const nome =
-    document.getElementById("nome")
-    .value.trim();
+        document.getElementById("nome")
+            .value.trim();
 
     const valor =
-    parseFloat(
-        document.getElementById("valor")
-        .value
-    );
+        parseFloat(
+            document.getElementById("valor")
+                .value
+        );
 
-    if(
+    if (
         nome === "" ||
         isNaN(valor) ||
         valor <= 0
-    ){
+    ) {
 
         alert(
             "Informe nome e valor válidos."
@@ -153,21 +153,21 @@ function adicionarDoacao(){
 
     historico.push({
 
-        nome:nome,
+        nome: nome,
 
-        valor:valor,
+        valor: valor,
 
         data:
-        new Date()
-        .toLocaleDateString(
-            "pt-BR"
-        )
+            new Date()
+                .toLocaleDateString(
+                    "pt-BR"
+                )
 
     });
 
     ranking[nome] =
-    (ranking[nome] || 0)
-    + valor;
+        (ranking[nome] || 0)
+        + valor;
 
     salvar();
 
@@ -183,34 +183,34 @@ function adicionarDoacao(){
 
 }
 
-function excluirDoacao(index){
+function excluirDoacao(index) {
 
-    if(
+    if (
         !confirm(
             "Deseja excluir esta doação?"
         )
-    ){
+    ) {
         return;
     }
 
     const doacao =
-    historico[index];
+        historico[index];
 
     arrecadado -= doacao.valor;
 
     ranking[doacao.nome] -= doacao.valor;
 
-    if(
+    if (
         ranking[doacao.nome] <= 0
-    ){
+    ) {
 
         delete ranking[doacao.nome];
 
     }
 
-    historico.splice(index,1);
+    historico.splice(index, 1);
 
-    if(arrecadado < META){
+    if (arrecadado < META) {
 
         metaAlcancada = false;
 
@@ -226,58 +226,58 @@ function excluirDoacao(index){
 // MURAL
 // =======================================
 
-function toggleMural(){
+function toggleMural() {
 
     const mural =
-    document.getElementById(
-        "conteudoMural"
-    );
+        document.getElementById(
+            "conteudoMural"
+        );
 
     const icone =
-    document.getElementById(
-        "iconeMural"
-    );
+        document.getElementById(
+            "iconeMural"
+        );
 
-    if(
+    if (
         mural.style.display ===
         "none"
-    ){
+    ) {
 
         mural.style.display =
-        "block";
+            "block";
 
         icone.innerHTML =
-        "▲";
+            "▲";
 
     }
-    else{
+    else {
 
         mural.style.display =
-        "none";
+            "none";
 
         icone.innerHTML =
-        "▼";
+            "▼";
 
     }
 
 }
 
-function adicionarMensagem(){
+function adicionarMensagem() {
 
     const autor =
-    document.getElementById(
-        "autorMensagem"
-    ).value.trim();
+        document.getElementById(
+            "autorMensagem"
+        ).value.trim();
 
     const texto =
-    document.getElementById(
-        "textoMensagem"
-    ).value.trim();
+        document.getElementById(
+            "textoMensagem"
+        ).value.trim();
 
-    if(
+    if (
         autor === "" ||
         texto === ""
-    ){
+    ) {
         return;
     }
 
@@ -288,10 +288,10 @@ function adicionarMensagem(){
         texto,
 
         data:
-        new Date()
-        .toLocaleDateString(
-            "pt-BR"
-        )
+            new Date()
+                .toLocaleDateString(
+                    "pt-BR"
+                )
 
     });
 
@@ -309,17 +309,17 @@ function adicionarMensagem(){
 
 }
 
-function excluirMensagem(index){
+function excluirMensagem(index) {
 
-    if(
+    if (
         !confirm(
             "Excluir mensagem?"
         )
-    ){
+    ) {
         return;
     }
 
-    mensagens.splice(index,1);
+    mensagens.splice(index, 1);
 
     salvar();
 
@@ -327,13 +327,13 @@ function excluirMensagem(index){
 
 }
 
-function limparMensagens(){
+function limparMensagens() {
 
-    if(
+    if (
         !confirm(
             "Deseja apagar todas as mensagens?"
         )
-    ){
+    ) {
         return;
     }
 
@@ -345,24 +345,24 @@ function limparMensagens(){
 
 }
 
-function renderizarMensagens(){
+function renderizarMensagens() {
 
     const container =
-    document.getElementById(
-        "listaMensagens"
-    );
+        document.getElementById(
+            "listaMensagens"
+        );
 
-    if(!container) return;
+    if (!container) return;
 
     container.innerHTML = "";
 
     mensagens
-    .slice()
-    .reverse()
-    .forEach(
-    (msg,index)=>{
+        .slice()
+        .reverse()
+        .forEach(
+            (msg, index) => {
 
-        container.innerHTML += `
+                container.innerHTML += `
 
         <div class="mensagem-card">
 
@@ -392,7 +392,7 @@ function renderizarMensagens(){
 
         `;
 
-    });
+            });
 
 }
 
@@ -400,7 +400,7 @@ function renderizarMensagens(){
 // LOCAL STORAGE
 // =======================================
 
-function salvar(){
+function salvar() {
 
     localStorage.setItem(
         "arrecadado",
@@ -428,15 +428,15 @@ function salvar(){
 // EXCEL
 // =======================================
 
-function exportarExcel(){
+function exportarExcel() {
 
     const ws =
-    XLSX.utils.json_to_sheet(
-        historico
-    );
+        XLSX.utils.json_to_sheet(
+            historico
+        );
 
     const wb =
-    XLSX.utils.book_new();
+        XLSX.utils.book_new();
 
     XLSX.utils.book_append_sheet(
         wb,
@@ -455,96 +455,96 @@ function exportarExcel(){
 // ATUALIZAR DASHBOARD
 // =======================================
 
-function atualizarTela(){
+function atualizarTela() {
 
     const percentual =
-    (arrecadado / META) * 100;
+        (arrecadado / META) * 100;
 
     document.getElementById(
         "arrecadado"
     ).innerText =
-    arrecadado.toLocaleString(
-        "pt-BR",
-        {
-            style:"currency",
-            currency:"BRL"
-        }
-    );
+        arrecadado.toLocaleString(
+            "pt-BR",
+            {
+                style: "currency",
+                currency: "BRL"
+            }
+        );
 
     document.getElementById(
         "percentual"
     ).innerText =
-    percentual.toFixed(1) +
-    "%";
+        percentual.toFixed(1) +
+        "%";
 
-    if(
+    if (
         document.getElementById(
             "totalDoadores"
         )
-    ){
+    ) {
 
         document.getElementById(
             "totalDoadores"
         ).innerText =
-        Object.keys(
-            ranking
-        ).length;
+            Object.keys(
+                ranking
+            ).length;
 
     }
 
     document.getElementById(
         "barra"
     ).style.width =
-    Math.min(
-        percentual,
-        100
-    ) + "%";
+        Math.min(
+            percentual,
+            100
+        ) + "%";
 
     document.getElementById(
         "nivel"
     ).style.height =
-    Math.min(
-        percentual,
-        100
-    ) + "%";
+        Math.min(
+            percentual,
+            100
+        ) + "%";
 
     // META ALCANÇADA
 
-    if(
+    if (
         arrecadado >= META &&
         !metaAlcancada
-    ){
+    ) {
 
         metaAlcancada = true;
 
         dispararFogos();
 
         const mensagem =
-        document.getElementById(
-            "mensagemMeta"
-        );
+            document.getElementById(
+                "mensagemMeta"
+            );
 
-        if(mensagem){
+        if (mensagem) {
 
             mensagem.innerHTML =
-            "🎉 META ALCANÇADA! 🎉";
+                "🎉 META ALCANÇADA! 🎉";
 
         }
 
     }
 
-    if(
+    if (
         arrecadado < META
-    ){
+    ) {
 
         metaAlcancada = false;
 
         const mensagem =
-        document.getElementById(
-            "mensagemMeta"
-        );
+            document.getElementById(
+                "mensagemMeta"
+            );
 
-        if(mensagem){
+        if (mensagem) {
 
             mensagem.innerHTML = "";
 
@@ -555,23 +555,23 @@ function atualizarTela(){
     // RANKING
 
     const listaRanking =
-    document.getElementById(
-        "ranking"
-    );
+        document.getElementById(
+            "ranking"
+        );
 
-    if(listaRanking){
+    if (listaRanking) {
 
         listaRanking.innerHTML = "";
 
         Object.entries(ranking)
 
-        .sort(
-            (a,b)=>b[1]-a[1]
-        )
+            .sort(
+                (a, b) => b[1] - a[1]
+            )
 
-        .forEach(item=>{
+            .forEach(item => {
 
-            listaRanking.innerHTML += `
+                listaRanking.innerHTML += `
 
             <li>
 
@@ -582,8 +582,8 @@ function atualizarTela(){
                 ${item[1].toLocaleString(
                     "pt-BR",
                     {
-                        style:"currency",
-                        currency:"BRL"
+                        style: "currency",
+                        currency: "BRL"
                     }
                 )}
 
@@ -591,27 +591,27 @@ function atualizarTela(){
 
             `;
 
-        });
+            });
 
     }
 
     // HISTÓRICO
 
     const listaHistorico =
-    document.getElementById(
-        "historico"
-    );
+        document.getElementById(
+            "historico"
+        );
 
-    if(listaHistorico){
+    if (listaHistorico) {
 
         listaHistorico.innerHTML = "";
 
         historico.forEach(
-        (item,index)=>{
+            (item, index) => {
 
-            listaHistorico.innerHTML +=
+                listaHistorico.innerHTML +=
 
-            `
+                    `
 
             <li>
 
@@ -622,12 +622,12 @@ function atualizarTela(){
                 -
 
                 ${item.valor.toLocaleString(
-                    "pt-BR",
-                    {
-                        style:"currency",
-                        currency:"BRL"
-                    }
-                )}
+                        "pt-BR",
+                        {
+                            style: "currency",
+                            currency: "BRL"
+                        }
+                    )}
 
                 <button
                     class="btn-excluir-doacao"
@@ -641,7 +641,7 @@ function atualizarTela(){
 
             `;
 
-        });
+            });
 
     }
 
@@ -651,27 +651,27 @@ function atualizarTela(){
 // INICIALIZAÇÃO
 // =======================================
 
-window.onload = function(){
+window.onload = function () {
 
     atualizarTela();
 
     renderizarMensagens();
 
-    if(
+    if (
         localStorage.getItem(
             "adminLogado"
         ) === "true"
-    ){
+    ) {
 
         document.getElementById(
             "loginTela"
         ).style.display =
-        "none";
+            "none";
 
         document.getElementById(
             "painelAdmin"
         ).style.display =
-        "block";
+            "block";
 
     }
 
