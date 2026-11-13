@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vaquinha Solidária DN</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <img src="img/17896e7e-823a-46d4-8961-f4cf13d8844e.jpg" alt="Foto do Beneficiado" class="foto">
+
+            <h2 class="nome-beneficiado">
+                Danilo "Limão"
+            </h2>
+
+
+            <h1>❤️ Vaquinha Solidária</h1>
+
+            <p>Ajude nosso colega nesta campanha.</p>
+
+        </div>
+
+        <div class="meta-card">
+
+            <h2>Meta</h2>
+
+            <div class="meta">
+                R$ 600,00
+            </div>
+
+        </div>
+
+        <div class="progress">
+
+            <div id="barra" class="progress-bar"></div>
+
+        </div>
+
+        <div class="estatisticas">
+
+            <div>
+                <h3>Arrecadado</h3>
+                <span id="arrecadado">R$ 0,00</span>
+            </div>
+
+            <div>
+                <h3>Percentual</h3>
+                <span id="percentual">0%</span>
+            </div>
+
+            <div>
+                <h3>Doadores</h3>
+                <span id="totalDoadores">0</span>
+            </div>
+
+        </div>
+
+        <div class="termometro">
+
+            <div id="nivel"></div>
+
+        </div>
+
+        <!-- PIX -->
+
+        <section class="pix-container">
+
+            <h2>💚 Faça sua doação via PIX</h2>
+
+            <p>
+                Escaneie o QR Code abaixo
+            </p>
+
+            <img id="qrcodePix" src="qrcode-pix.png" alt="QR Code PIX" class="pix-qrcode">
+
+
+            <div class="pix-info">
+
+                <input type="text" id="codigoPix" readonly
+                    value="00020126360014BR.GOV.BCB.PIX0114+55119667361115204000053039865802BR5901N6001C62070503***6304358B">
+
+
+
+            </div>
+
+        </section>
+
+        <!-- MURAL -->
+
+        <div class="mensagens">
+
+            <div class="titulo-mural" onclick="toggleMural()">
+
+                <h2>💙 Mural de Apoio</h2>
+
+                <span id="iconeMural">▼</span>
+
+            </div>
+
+            <div id="conteudoMural" style="display:none;">
+
+                <input type="text" id="autorMensagem" placeholder="Seu nome">
+
+                <textarea id="textoMensagem" placeholder="Digite uma mensagem">
+            </textarea>
+
+                <button class="btn success" onclick="adicionarMensagem()">
+
+                    Publicar
+
+                </button>
+
+                <button class="btn warning" onclick="limparMensagens()">
+
+                    Limpar Mensagens
+
+                </button>
+
+                <div id="listaMensagens"></div>
+
+            </div>
+
+        </div>
+
+        <!-- LOGIN -->
+
+        <div id="loginTela" class="login-container">
+
+            <div class="login-box">
+
+                <h2>Área Administrativa</h2>
+
+                <input type="text" id="usuario" placeholder="Usuário">
+
+                <input type="password" id="senha" placeholder="Senha">
+
+                <button onclick="login()">
+
+                    Entrar
+
+                </button>
+
+                <p id="erroLogin"></p>
+
+            </div>
+
+        </div>
+
+        <!-- PAINEL ADM -->
+
+        <div id="painelAdmin" class="painel">
+
+            <button class="btn danger" onclick="logout()">
+
+                Sair
+
+            </button>
+
+            <h2>Registrar Doação</h2>
+
+            <div class="doacao">
+
+                <input type="text" id="nome" placeholder="Nome">
+
+                <input type="number" id="valor" placeholder="Valor">
+
+                <button class="btn success" onclick="adicionarDoacao()">
+
+                    Registrar
+
+                </button>
+
+            </div>
+
+            <button class="btn dn" onclick="exportarExcel()">
+
+                Exportar Excel
+
+            </button>
+
+            <h2>🏆 Ranking</h2>
+
+            <ul id="ranking"></ul>
+
+            <h2>📋 Histórico</h2>
+
+            <ul id="historico"></ul>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
